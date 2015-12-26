@@ -67,6 +67,26 @@ var assert = require('assert'),
     ],
     what: 'Triple backslash in quoted string (GH Issue #345)'
   },
+  { source: 'BODYSTRUCTURE ("TEXT" "HTML" ("CHARSET" "UTF-8,ISO-8859-1" MIME-Version: 1.0 Content-Transfer-Encoding: base64") NIL NIL NIL 4074 48 NIL NIL NIL)',
+    expected: [ 'BODYSTRUCTURE',
+      [ 'TEXT',
+        'HTML',
+        [ 'CHARSET',
+          'UTF-8,ISO-8859-1',
+          'MIME-Version:',
+          '1.0',
+          'Content-Transfer-Encoding:',
+          'base64' ],
+        null,
+        null,
+        null,
+        4074,
+        48,
+        null,
+        null,
+        null ] ],
+    what: 'poorly quoted bodystructure'
+  },
 ].forEach(function(v) {
   var result;
 

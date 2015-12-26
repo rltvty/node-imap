@@ -398,6 +398,88 @@ var CR = '\r', LF = '\n', CRLF = CR + LF;
               ],
     what: 'Untagged FETCH (flags, date, size, envelope, body[structure])'
   },
+  { source: ['* 110 FETCH (UID 8991 FLAGS (\\Seen)',
+    ' INTERNALDATE "15-Dec-2015 14:26:43 +0800"',
+    ' ENVELOPE ("Tue, 15 Dec 2015 14:26:43 +0800"',
+    ' "=?GBK?B?vtvXrMeutqm1paG2a2lzcyBoZXIgbW9yZaG30tHNqLn9suLK1C3H68nzxfo=?="',
+    ' (("=?GBK?B?c3VwcG9ydA==?=" NIL "support" "zcgames.cn"))',
+    ' (("=?GBK?B?c3VwcG9ydA==?=" NIL "support" "zcgames.cn"))',
+    ' (("=?GBK?B?c3VwcG9ydA==?=" NIL "support" "zcgames.cn"))',
+    ' (("=?GBK?B?cmVuamlhbnFpYW5n?=" NIL "renjianqiang" "me.com")',
+    '("=?GBK?B?bHZ6aGl6aGFv?=" NIL "lvzhizhao" "zcgames.cn")',
+    '("=?GBK?B?bGl1d2VpbGk=?=" NIL "liuweili" "zcgames.cn")',
+    '("=?GBK?B?bGl3ZWk=?=" NIL "liwei" "zcgames.cn")',
+    '("=?GBK?B?amlhbmdqaWFuY2hlbg==?=" NIL "jiangjianchen" "zcgames.cn"))',
+    ' NIL NIL NIL "")',
+    ' BODYSTRUCTURE ("TEXT" "HTML"',
+    ' ("CHARSET" "UTF-8,ISO-8859-1" MIME-Version: 1.0 Content-Transfer-Encoding: base64")',
+    ' NIL NIL NIL 4074 48 NIL NIL NIL))',
+    CRLF],
+    expected: [ { type: 'fetch',
+      num: 12,
+      textCode: undefined,
+      text: {
+        flags: [ '\\Seen' ],
+        internaldate: new Date('17-Jul-1996 02:44:25 -0700'),
+        'rfc822.size': 4286,
+        envelope: {
+          date: new Date('Wed, 17 Jul 1996 02:23:25 -0700 (PDT)'),
+          subject: 'IMAP4rev1 WG mtg summary and minutes',
+          from: [
+            { name: 'Terry Gray',
+              mailbox: 'gray',
+              host: 'cac.washington.edu'
+            }
+          ],
+          sender: [
+            { name: 'Terry Gray',
+              mailbox: 'gray',
+              host: 'cac.washington.edu'
+            }
+          ],
+          replyTo: [
+            { name: 'Terry Gray',
+              mailbox: 'gray',
+              host: 'cac.washington.edu'
+            }
+          ],
+          to: [
+            { name: null,
+              mailbox: 'imap',
+              host: 'cac.washington.edu'
+            }
+          ],
+          cc: [
+            { name: null,
+              mailbox: 'minutes',
+              host: 'CNRI.Reston.VA.US'
+            },
+            { name: 'John Klensin',
+              mailbox: 'KLENSIN',
+              host: 'MIT.EDU'
+            }
+          ],
+          bcc: null,
+          inReplyTo: null,
+          messageId: '<B27397-0100000@cac.washington.edu>'
+        },
+        body: [
+          { partID: '1',
+            type: 'text',
+            subtype: 'plain',
+            params: { charset: 'US-ASCII' },
+            id: null,
+            description: null,
+            encoding: '7BIT',
+            size: 3028,
+            lines: 92
+          }
+        ]
+      }
+    }
+    ],
+    what: 'Untagged FETCH (flags, date, size, envelope, body[structure])'
+  },
   // EXTENSIONS ================================================================
   { source: ['* ESEARCH (TAG "A285") UID MIN 7 MAX 3800', CRLF],
     expected: [ { type: 'esearch',
