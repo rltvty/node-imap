@@ -558,6 +558,16 @@ bodystructure:
     }
     ],
     what: 'envelope with another bad messageId'
+  },
+  { source: ['* 1621 FETCH (UID 101990 FLAGS (\\Seen) INTERNALDATE "28-Mar-2015 16:31:10 +0000" ENVELOPE ("Sat, 28 Mar 2015 17:31:04 +0100" "Email activation by PC-FAX.com" ((NIL NIL "support" "fax.de")) ((NIL NIL "support" "fax.de")) ((NIL NIL "support" "fax.de")) ((NIL NIL "eprauca" "hotmail.fr")) NIL NIL NIL "<201503281631.t2SGVOwj006957@(none)>"))', CRLF],
+   expected: [ {
+     type: 'fetch',
+     num: 159,
+     textCode: undefined,
+     text: {}
+   }
+   ],
+  what: "another parsing exception"
   }
 ].forEach(function(v) {
   var ss = new require('stream').Readable(), p, result = [];
