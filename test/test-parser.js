@@ -527,12 +527,12 @@ bodystructure:
                       cc: null,
                       bcc: null,
                       inReplyTo: null,
-                      messageId: '<message@id.with" <quote.angleBracket@and.space>'
-                    }
-                  }
-                }
-              ],
-    what: 'envelope with bad messageId'
+                      messageId: '<message@id.with' },
+                      'wed,': 16,
+                      dec: 2015,
+                      '16:19:25': '+0100',
+                      'line" ((nil nil nil nil)) ((nil nil nil nil)) ((nil nil nil nil)) ((nil nil nil nil)) nil nil nil "<message@id.with" <quote.anglebracket@and.space>"': undefined } } ],
+    what: 'envelope with bad messageId (does not throw exception)'
   },
   { source: ['* 159 FETCH (UID 5287 FLAGS () INTERNALDATE "18-Dec-2015 00:11:41 +0800" ENVELOPE ("Thu, 17 Dec 2015 16:08:55 +0800 (CST)" "Subject Line" ((NIL NIL NIL NIL)) ((NIL NIL NIL NIL)) ((NIL NIL NIL NIL)) ((NIL NIL NIL NIL)) NIL NIL NIL "<message.id.with@[brackets]>"))', CRLF],
     expected: [ { type: 'fetch',
@@ -596,6 +596,9 @@ bodystructure:
                     );
       });
     }
+  });
+  p.on('error', function(error) {
+    console.log(error.message);
   });
 
   try {
