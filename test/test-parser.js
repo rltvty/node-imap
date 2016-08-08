@@ -531,6 +531,7 @@ bodystructure:
                       'wed,': 16,
                       dec: 2015,
                       '16:19:25': '+0100',
+                      CET: ' "Subjec',
                       'line" ((nil nil nil nil)) ((nil nil nil nil)) ((nil nil nil nil)) ((nil nil nil nil)) nil nil nil "<message@id.with" <quote.anglebracket@and.space>"': undefined } } ],
     what: 'envelope with bad messageId (does not throw exception)'
   },
@@ -560,7 +561,7 @@ bodystructure:
     what: 'envelope with another bad messageId'
   }
 ].forEach(function(v) {
-  var ss = new require('stream').Readable(), p, result = [];
+  var ss = new require('readable-stream').Readable(), p, result = [];
   ss._read = function(){};
 
   p = new Parser(ss);
@@ -595,10 +596,8 @@ bodystructure:
                      )
                     );
       });
-    }
-  });
-  p.on('error', function(error) {
-    console.log(error.message);
+    } else
+      stream.resume();
   });
 
   try {
@@ -609,14 +608,16 @@ bodystructure:
     console.log(makeMsg(v.what, 'JS Exception: ' + e.stack));
     return;
   }
-  assert.deepEqual(result,
-                   v.expected,
-                   makeMsg(v.what,
-                           'Result mismatch:'
-                           + '\nParsed: ' + inspect(result, false, 10)
-                           + '\nExpected: ' + inspect(v.expected, false, 10)
-                   )
-                  );
+  setImmediate(function() {
+    assert.deepEqual(result,
+      v.expected,
+      makeMsg(v.what,
+        'Result mismatch:'
+        + '\nParsed: ' + inspect(result, false, 10)
+        + '\nExpected: ' + inspect(v.expected, false, 10)
+      )
+    );
+  });
 });
 
 function makeMsg(what, msg) {
